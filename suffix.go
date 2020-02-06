@@ -18,13 +18,14 @@ func (s *Suffixs) Load(suffixs []string) {
 	for _, v := range suffixs {
 		v = strings.TrimSpace(v)
 		v = "." + strings.Trim(v, ".")
+		v = strings.ToLower(v)
 		s.suffix.Store(v, true)
 	}
 }
 
 //MatchDomain 根据已有后缀匹配出主域名
 func (s *Suffixs) MatchDomain(host string) (string, bool) {
-	domain := host
+	domain := strings.ToLower(host)
 	var ok bool
 	for {
 		suffix := s.cutHead(domain)
